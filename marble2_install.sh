@@ -26,6 +26,7 @@ function download_node() {
   wget -q $COIN_TGZ
   compile_error
   unzip $COIN_ZIP >/dev/null 2>&1
+  chmod +x $COIN_DAEMON
   cp $COIN_DAEMON $COIN_PATH
   cd - >/dev/null 2>&1
   rm -rf $TMP_FOLDER >/dev/null 2>&1
@@ -83,45 +84,36 @@ EOF
   fi
 }
 
-
 function create_config() {
-  mkdir $CONFIGFOLDER >/dev/null 2>&1
-  RPCUSER=$(tr -cd '[:alnum:]' < /dev/urandom | fold -w10 | head -n1)
-  RPCPASSWORD=$(tr -cd '[:alnum:]' < /dev/urandom | fold -w22 | head -n1)
-  cat << EOF > $CONFIGFOLDER/$CONFIG_FILE
-rpcuser=$RPCUSER
-rpcpassword=$RPCPASSWORD
-rpcport=$RPC_PORT
-rpcallowip=127.0.0.1
-listen=1
-server=1
-daemon=1
-port=$COIN_PORT
-EOF
+  $COIN_PATH$COIN_DAEMON -daemon >/dev/null 2>&1
+  sleep 10
+  if [ -z "$(ps axo cmd:100 | grep $COIN_DAEMON)" ]; then
+    echo -e "${RED}$COIN_NAME server couldn not start. Check /var/log/syslog for errors.{$NC}"
+    exit 1
+  fi
+  $COIN_PATH$COIN_CLI stop
 }
 
 function create_key() {
   echo -e "Enter your ${RED}$COIN_NAME Masternode Private Key${NC}. Leave it blank to generate a new ${RED}Masternode Private Key${NC} for you:"
   read -e COINKEY
   if [[ -z "$COINKEY" ]]; then
-  $COIN_PATH$COIN_DAEMON >/dev/null 2>&1
-  sleep 5
-  $COIN_PATH$COIN_DAEMON -daemon >/dev/null 2>&1
-  sleep 30
-  if [ -z "$(ps axo cmd:100 | grep $COIN_DAEMON)" ]; then
-   echo -e "${RED}$COIN_NAME server couldn not start. Check /var/log/syslog for errors.{$NC}"
-   exit 1
-  fi
-  COINKEY=$($COIN_PATH$COIN_CLI masternode genkey)
-  if [ "$?" -gt "0" ];
-    then
-    echo -e "${RED}Wallet not fully loaded. Let us wait and try again to generate the Private Key${NC}"
-    sleep 30
+    $COIN_PATH$COIN_DAEMON >/dev/null 2>&1
+    sleep 5
+    if [ -z "$(ps axo cmd:100 | grep $COIN_DAEMON)" ]; then
+      echo -e "${RED}$COIN_NAME server couldn not start. Check /var/log/syslog for errors.{$NC}"
+      exit 1
+    fi
     COINKEY=$($COIN_PATH$COIN_CLI masternode genkey)
-  fi
+    if [ "$?" -gt "0" ];
+      then
+      echo -e "${RED}Wallet not fully loaded. Let us wait and try again to generate the Private Key${NC}"
+      sleep 30
+      COINKEY=$($COIN_PATH$COIN_CLI masternode genkey)
+    fi
   $COIN_PATH$COIN_CLI stop
-fi
-clear
+  fi
+  clear
 }
 
 function update_config() {
@@ -242,6 +234,7 @@ function important_information() {
 
 function setup_node() {
   get_ip
+  create_config
   create_key
   update_config
   download_blocks
