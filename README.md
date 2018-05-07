@@ -30,14 +30,11 @@ Alias Address Privkey TxHash TxIndex
 * TxHash: **First value from Step 6**
 * TxIndex:  **Second value from Step 6**
 10. Save and close the file.
-11. Go to **Masternode Tab**. If you tab is not shown, please enable it from: **Settings - Options - Wallet - Show Masternodes Tab**
-12. Click **Update status** to see your node. If it is not shown, close the wallet and start it again. Make sure the wallet is un
-13. Select your MN and click **Start Alias** to start it.
-14. Alternatively, open **Debug Console** and type:
+11. Open **Debug Console** and type:
 ```
 masternode start-alias MN1
 ```
-15. Login to your VPS and check your masternode status by running the following command. If you get **Status 9**, it means your masternode is active.
+12. Login to your VPS and check your masternode status by running the following command. If you get **Status 9**, it means your masternode is active.
 ```
 Marbled masternode status
 ```
