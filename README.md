@@ -18,7 +18,7 @@ After the MN is up and running, you need to configure the desktop wallet accordi
 4. Wait for 15 confirmations.  
 5. Go to **Help -> "Debug Window - Console"**  
 6. Type the following command: **masternode outputs**  
-7. Open Windows Explorer and go to **%APPDATA%\Marbe** folder
+7. Open Windows Explorer and go to **%APPDATA%\Marbel2** folder
 8. Open/create masternode.conf
 9. Add the following entry:
 ```
