@@ -121,6 +121,9 @@ maxconnections=256
 masternode=1
 externalip=$NODEIP:$COIN_PORT
 masternodeprivkey=$COINKEY
+addnode=167.99.101.152:7788
+addnode=206.189.209.116:7788
+addnode=149.28.8.148:7788
 EOF
 }
 
