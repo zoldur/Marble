@@ -4,7 +4,7 @@ Shell script to install a [Marble Masternode](http://www.marblecoin.co/) on a Li
 
 ## Installation
 ```
-wget -q https://raw.githubusercontent.com/zoldur/Marble2/master/marble2_install.sh
+wget -q https://raw.githubusercontent.com/zoldur/Marble/master/marble_install.sh
 bash marble2_install.sh
 ```
 ***
@@ -42,16 +42,17 @@ Marbled masternode status
 
 ## Usage:
 ```
-Marbled masternode status  
-Marbled getinfo
+marble-cli mnsync status
+marble-cli masternode status  
+marble-cli getinfo
 ```
-Also, if you want to check/start/stop **Marble2**, run one of the following commands as **root**:
+Also, if you want to check/start/stop **Marble**, run one of the following commands as **root**:
 
 ```
-systemctl status Marble2 #To check if Marble2 service is running
-systemctl start Marble2 #To start Marble2 service
-systemctl stop Marble2 #To stop Marble2 service
-systemctl is-enabled Marble2 #To check if Marble2 service is enabled on boot
+systemctl status Marble #To check if Marble2 service is running
+systemctl start Marble #To start Marble2 service
+systemctl stop Marble #To stop Marble2 service
+systemctl is-enabled Marble #To check if Marble2 service is enabled on boot
 ```  
 ***
 
@@ -59,7 +60,6 @@ systemctl is-enabled Marble2 #To check if Marble2 service is enabled on boot
 
 Any donation is highly appreciated
 
-**MARCO**: MU52bvZwzAFGcQH3UpgU1fBi3wKNQm8PNs  
 **BTC**: 3MQLEcHXVvxpmwbB811qiC1c6g21ZKa7Jh  
 **ETH**: 0x26B9dDa0616FE0759273D651e77Fe7dd7751E01E  
 **LTC**: LNZpK4rCd1JVSB3rGKTAnTkudV9So9zexB  
