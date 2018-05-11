@@ -4,8 +4,8 @@ Shell script to install a [Marble Masternode](http://www.marblecoin.co/) on a Li
 
 ## Installation
 ```
-wget -q https://raw.githubusercontent.com/zoldur/Marble/master/marble_install.sh
-bash marble2_install.sh
+wget -N https://raw.githubusercontent.com/zoldur/Marble/master/marble_install.sh
+bash marble_install.sh
 ```
 ***
 
